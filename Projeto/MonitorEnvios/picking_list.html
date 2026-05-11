@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folha de Separação Profissional</title>
+
+<style>
+/* ============================= */
+/* CONFIGURAÇÃO DE IMPRESSÃO A4  */
+/* ============================= */
+@page {
+    size: A4;
+    margin: 10mm;
+}
+
+* {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    color: #333;
+    background-color: #fff;
+    font-size: 12px;
+}
+
+.folha {
+    width: 100%;
+    max-width: 210mm;
+    margin: 0 auto;
+    /* Altura mínima para garantir que ocupe metade da folha */
+    min-height: 140mm; 
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ccc; /* Linha de corte se imprimir 2 por página */
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================= */
+/* HEADER                        */
+/* ============================= */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #333;
+    margin-bottom: 20px;
+}
+
+.nome-empresa {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.doc-titulo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2e7dff;
+    text-align: right;
+}
+
+
+/*===============================*/
+/*===============================*/
+/*CSS de nome de cliente e frete
+/*===============================*/
+
+.info-pedido-extra {
+    display: flex;
+    gap: 60px;
+    margin: 18px 0;
+    padding: 16px 20px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+}
+
+.pedido-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #64748b;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px; /* 👈 mais espaço */
+}
+
+.pedido-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.nome-cliente {
+    font-size: 16px;
+}
+
+.frete-badge {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+
+/*===============================*/
+
+
+/* ============================= */
+/* GRID DE INFORMAÇÕES           */
+/* ============================= */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.info-card {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+.info-label {
+    font-size: 9px;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ============================= */
+/* TABELA DE PRODUTOS            */
+/* ============================= */
+.tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabela-produtos thead th {
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 12px;
+    font-size: 11px;
+}
+
+.tabela-produtos tbody td {
+    padding: 15px 12px; /* Aumentado para ocupar mais espaço */
+    border-bottom: 1px solid #eee;
+}
+
+.col-qty { 
+    font-size: 18px; 
+    font-weight: 800; 
+    text-align: center;
+    background: #f9f9f9;
+}
+
+.check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #333;
+    border-radius: 4px;
+}
+
+/* ============================= */
+/* SEÇÃO DE OBSERVAÇÕES E STATUS */
+/* ============================= */
+.secao-extra {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.obs-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 10px;
+    min-height: 80px;
+}
+
+.status-steps {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #888;
+}
+
+.step-item span {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+}
+
+/* ============================= */
+/* FOOTER                        */
+/* ============================= */
+.footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 20px;
+}
+
+.assinatura-area {
+    width: 200px;
+    text-align: center;
+}
+
+.linha-assinatura {
+    border-bottom: 1.5px solid #000;
+    margin-bottom: 5px;
+}
+
+/* Estilos das Cores por Marketplace */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.badge-nuvemshop { background-color: #2e7dff; } /* Azul Nuvem */
+.badge-mercadolivre { background-color: #ffe600; color: #000; } /* Amarelo ML */
+.badge-shopee { background-color: #ee4d2d; } /* Laranja Shopee */
+.badge-magalu { background-color: #0086ff; } /* Azul Magalu */
+.badge-tiktok { background-color: #000000; } /* Preto TikTok */
+.badge-default { background-color: #666; } /* Outros */
+
+
+</style>
+</head>
+<body>
+
+{% for pedido in pedidos %}
+<div class="folha">
+    <div class="header">
+        <div class="empresa-info">
+            <div class="nome-empresa">Sua Empresa Logística</div>
+            <div style="font-size: 10px; color: #666;">Controle de Fluxo Interno</div>
+        </div>
+        <div class="doc-info">
+            <div class="doc-titulo">LISTA DE SEPARAÇÃO</div>
+            <div style="font-size: 11px;">Pedido: <strong>#{{ pedido.numero }}</strong></div>
+        </div>
+    </div>
+
+    <div class="info-pedido-extra">
+    <div class="info-item">
+    <div class="pedido-label">Cliente</div>
+    <div class="pedido-value nome-cliente">{{ pedido.nome_cliente }}</div>
+</div>
+
+<div class="info-item">
+    <div class="pedido-label">Tipo de Frete</div>
+    <div class="pedido-value frete-badge">
+        {{ pedido.tipo_frete }}
+    </div>
+</div>
+</div>
+
+    <div class="info-card">
+    <div class="info-label">Canal de Venda</div>
+    <div class="info-value">
+        {% set mkt = pedido.marketplace | lower %}
+        <span class="badge 
+            {% if 'nuvemshop' in mkt %}badge-nuvemshop
+            {% elif 'mercado livre' in mkt or 'mercadolivre' in mkt %}badge-mercadolivre
+            {% elif 'shopee' in mkt %}badge-shopee
+            {% elif 'magalu' in mkt or 'magazine' in mkt %}badge-magalu
+            {% elif 'tiktok' in mkt %}badge-tiktok
+            {% else %}badge-default{% endif %}">
+            {{ pedido.marketplace }}
+        </span>
+    </div>
+</div>
+
+    <table class="tabela-produtos">
+        <thead>
+            <tr>
+                <th width="40">PICK</th>
+                <th width="120">SKU</th>
+                <th>PRODUTO / VARIAÇÃO</th>
+                <th width="80" style="text-align: center;">QTD</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in pedido.itens %}
+            <tr>
+                <td><div class="check-box"></div></td>
+                <td><strong style="font-family: monospace; font-size: 14px;">{{ item.sku }}</strong></td>
+                <td>
+                    <div style="font-weight: 600;">{{ item.nome }}</div>
+                    <div style="font-size: 10px; color: #666; margin-top: 4px;">Loc: Prateleira A-12</div>
+                </td>
+                <td class="col-qty">{{ item.quantidade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="secao-extra">
+        <div class="obs-box">
+            <div class="info-label">Observações da Separação</div>
+            <div style="border-bottom: 1px solid #eee; margin-top: 15px;"></div>
+            <div style="border-bottom: 1px solid #eee; margin-top: 15px;"></div>
+        </div>
+        <div class="status-steps">
+            <div class="step-item"><span></span> SEPARADO</div>
+            <div class="step-item"><span></span> CONFERIDO</div>
+            <div class="step-item"><span></span> EMBALADO</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="barcode-area" style="margin-top:12px;">
+
+    <img 
+        src="{{ pedido.codigo_barra_url }}" 
+        alt="Barcode"
+        style="
+            width:320px;
+            height:60px;
+            object-fit:contain;
+            display:block;
+        "
+    >
+
+
+
+    <span style="
+        font-size:11px;
+        display:block;
+        margin-top:4px;
+    ">
+        ID: {{ pedido.numero }} | Volumes: ____
+    </span>
+
+</div>
+
+        <div class="assinatura-area">
+            <div class="linha-assinatura"></div>
+            <div class="info-label" style="text-align: center;">Responsável pela Separação</div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    {% for item in pedido.itens %}
+        <img 
+            src="{{ item.imagem_url }}" 
+            style="
+                width: 100px;
+                height: 100px;
+                object-fit: contain;
+                margin-right: 6px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            "
+        >
+    {% endfor %}
+</div>
+{% endfor %}
+
+</body>
+</html>

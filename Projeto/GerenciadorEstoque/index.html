@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Estoque</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   
+
+    <div id="login-view">
+
+    <div class="login-card" id="auth-container">
+
+        <!-- FORM LOGIN -->
+        <div class="form-section login-section">
+            <h2>Login</h2>
+
+            <form>
+                <div class="input-box">
+                    <input type="text" id="username" required>
+                    <label>Usuário</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="password" required>
+                    <label>Senha</label>
+                </div>
+
+                <button type="button" id="login-button">Entrar</button>
+
+                <p id="login-error"></p>
+
+                <p class="switch">
+                    Não tem conta?
+                    <span id="btn-show-register">Cadastrar</span>
+                </p>
+            </form>
+        </div>
+
+        <!-- FORM CADASTRO -->
+        <div class="form-section register-section">
+            <h2>Cadastro</h2>
+
+            <form>
+                <div class="input-box">
+                    <input type="text" id="register-username" required>
+                    <label>Usuário</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="register-key" required>
+                    <label>Chave de acesso</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="register-password" required>
+                    <label>Senha</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="register-password2" required>
+                    <label>Repetir senha</label>
+                </div>
+
+                <button type="button" id="register-button">
+    Cadastrar
+</button>
+
+                <p class="switch">
+                    Já tem conta?
+                    <span id="btn-show-login">Login</span>
+                </p>
+            </form>
+        </div>
+
+        <!-- PAINEL LATERAL -->
+        <div class="overlay-panel">
+            <div class="overlay-content">
+                <h2>Bem-vindo!</h2>
+                <p>INLINE STORE</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="toast-container"></div>
+
+
+
+    <div id="main-view" style="display: none;">
+        <header>
+    <h1>Gerenciador de Estoque Bling</h1>
+    
+    <!-- Esta div vai agrupar tudo na direita -->
+    <div class="user-info">
+        <!-- 1. Nome do usuário -->
+        <span id="user-display"></span>
+        
+        
+        <!-- 3. Botão de Sair (apenas um) -->
+        <button id="logout-button">SAIR</button>
+    </div>
+</header>
+
+        <main class="container">
+            <div class="top-cards-container">
+                <div class="card data-card">
+                    <h2>Gerenciamento de Dados</h2>
+                    <p id="data-status">Carregando status dos dados...</p>
+                    <button id="import-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/></svg>
+                        Importar/Atualizar Produtos do Bling
+                    </button>
+                    
+                    <div id="progressWrapper" class="progress-wrapper" style="display:none;">
+  <svg width="120" height="120">
+    <circle r="50" cx="60" cy="60" class="progress-bg"></circle>
+    <circle r="50" cx="60" cy="60" class="progress-bar"></circle>
+  </svg>
+  <div class="progress-text" id="progressText">0%</div>
+</div>
+
+                    <!-- 🔵 Botão Novo: BIPAR -->
+    <button id="bipar-button" class="bipar-btn">
+        📦 BIPAR Produtos
+    </button>
+</div>
+                </div>
+
+                <div class="card search-card">
+                    <h2><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg> Pesquisar e Atualizar Estoque</h2>
+                    <label for="deposito-select">Selecione o depósito:</label>
+                    <select id="deposito-select"></select>
+                    <label for="search-input">Digite o nome ou SKU do produto...</label>
+                    <input type="text" id="search-input" placeholder="Ex: Camiseta">
+                </div>
+            </div>
+
+            <div id="results-section">
+                <div id="loader" class="loader" style="display: none;"></div>
+                <div id="results-container">
+                    <!-- Os resultados da busca aparecerão aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+<!-- MODAL DE BIPI -->
+
+<div id="modalBipar" class="modal" style="display:none;">
+    <div class="modal-content">
+
+        <span class="close" id="closeModalBipar">&times;</span>
+
+        <h2>BIPAR Produtos</h2>
+
+        <!-- Botões de modo -->
+        <div class="bipar-modes">
+            <button class="mode-btn active" data-mode="entrada">Entrada</button>
+            <button class="mode-btn" data-mode="saida">Saída</button>
+            <button class="mode-btn" data-mode="substituir">Substituir</button>
+        </div>
+
+        <!-- Campo para bipar -->
+        <label>Código / SKU:</label>
+        <input type="text" id="biparInput" autofocus placeholder="Bipe um produto...">
+
+        <div id="contadorBips" style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
+                    Total bipado: 0
+                         </div>
+
+
+        <!-- Lista dos itens bipados -->
+        <div id="biparList" class="bipar-list"></div>
+
+        <!-- Botão de enviar -->
+        <button id="confirmarBipagem" class="confirm-btn">
+            Salvar Contagem
+        </button>
+
+    </div>
+</div>
+
+
+
+
+    <script src="./app.js"></script>
+ 
+
+
+</body>
+</html>
