@@ -90,18 +90,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 gsap.utils.toArray(".project-card").forEach((card) => {
 
-  gsap.to(card, {
+  gsap.fromTo(card,
 
-    opacity: 1,
-    y: 0,
+    {
+      opacity: 0,
+      y: 80
+    },
 
-    duration: 1,
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
 
-    scrollTrigger: {
-      trigger: card,
-      start: "top 85%"
+      scrollTrigger: {
+        trigger: card,
+        start: "top 85%",
+
+        toggleActions: "play reset play reset"
+      }
     }
 
-  });
+  );
 
 });

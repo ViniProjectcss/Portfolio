@@ -44,7 +44,7 @@ particlesJS("particles-js", {
     events: {
 
       onhover: {
-        enable: true,
+        enable: true,   
         mode: "grab"
       }
 
