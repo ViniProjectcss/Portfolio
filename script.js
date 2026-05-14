@@ -113,3 +113,99 @@ gsap.utils.toArray(".project-card").forEach((card) => {
   );
 
 });
+
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* =====================================================
+   ABOUT TEXT
+===================================================== */
+
+gsap.utils.toArray(".about-content p").forEach((item) => {
+
+  gsap.to(item, {
+
+    opacity: 1,
+    y: 0,
+    duration: 1,
+
+    scrollTrigger: {
+      trigger: item,
+      start: "top 88%",
+
+      toggleActions: "play reset play reset"
+    }
+
+  });
+
+});
+
+
+
+/* =====================================================
+   SOFT SKILLS
+===================================================== */
+
+gsap.utils.toArray(".soft-card").forEach((card) => {
+
+  gsap.to(card, {
+
+    opacity: 1,
+    y: 0,
+    duration: 1,
+
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%",
+
+      toggleActions: "play reset play reset"
+    }
+
+  });
+
+});
+
+
+/* =====================================================
+   WORKFLOW
+===================================================== */
+
+gsap.utils.toArray(".workflow-card").forEach((card) => {
+
+  gsap.to(card, {
+
+    opacity: 1,
+    y: 0,
+    duration: 1,
+
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%",
+
+      toggleActions: "play reset play reset"
+    }
+
+  });
+
+});
+
+
+/* =====================================================
+   ABOUT EDUCATION
+===================================================== */
+
+gsap.to(".about-education", {
+
+  opacity: 1,
+  y: 0,
+  duration: 1,
+
+  scrollTrigger: {
+    trigger: ".about-education",
+    start: "top 88%",
+
+    toggleActions: "play reset play reset"
+  }
+
+});

@@ -46,6 +46,16 @@ body {
   align-items: center;
   padding: 0 10%;
   position: relative;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 10%;
+
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-content {
@@ -63,6 +73,24 @@ body {
   font-size: 5rem;
   line-height: 1.1;
   margin: 0;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #f8fafc 30%,
+    #60a5fa 65%,
+    #8b5cf6 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  font-weight: 800;
+  letter-spacing: -2px;
+
+  text-shadow:
+    0 0 30px rgba(96,165,250,0.08);
 }
 
 .subtitle {
@@ -113,6 +141,53 @@ body {
   filter: blur(160px);
   opacity: 0.4;
 }
+
+
+
+/* STATS */
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+
+  margin-top: 60px;
+
+  flex-wrap: wrap;
+}
+
+.stat {
+  position: relative;
+}
+
+.stat h3 {
+  font-size: 1.4rem;
+
+  margin-bottom: 8px;
+
+  background: linear-gradient(
+    90deg,
+    #60a5fa,
+    #8b5cf6
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  font-weight: 700;
+}
+
+.stat p {
+  color: #94a3b8;
+
+  font-size: 0.95rem;
+
+  line-height: 1.5;
+
+  max-width: 220px;
+}
+
 
 /* PROJETOS */
 
@@ -560,5 +635,608 @@ padding:
     font-size: 4rem;
   }
 
+}
+
+
+
+/* =====================================================
+                          Skill
+   ===================================================== */
+
+
+
+:root {
+  --accent:       #38bdf8;
+  --accent-dim:   rgba(56, 189, 248, 0.12);
+  --accent-glow:  rgba(56, 189, 248, 0.22);
+  --blue:         #2563eb;
+  --blue-dim:     rgba(37, 99, 235, 0.15);
+  --surface:      rgba(15, 23, 42, 0.72);
+  --border:       rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(56, 189, 248, 0.30);
+  --text-muted:   #64748b;
+  --text-body:    #94a3b8;
+  --text-bright:  #cbd5e1;
+  --radius-card:  24px;
+  --transition:   0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   LAYOUT BASE — sections compartilhadas
+───────────────────────────────────────────────────── */
+
+.section {
+  padding: 130px 10%;
+  position: relative;
+}
+
+/* Linha decorativa sutil no topo de cada section */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56, 189, 248, 0.18) 40%,
+    rgba(37, 99, 235, 0.12) 60%,
+    transparent
+  );
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SOBRE MIM
+───────────────────────────────────────────────────── */
+
+.section-header {
+  margin-bottom: 70px;
+}
+
+/* Ponto decorativo antes da tag */
+.section-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.section-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+
+  color: #f1f5f9;
+  margin: 0;
+
+  /* Gradiente texto sutil */
+  background: linear-gradient(135deg, #f1f5f9 60%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  
+}
+
+
+
+
+
+
+
+
+/* ═════════════════════════════════════════════════════
+   ABOUT
+═════════════════════════════════════════════════════ */
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* O header ocupa a coluna esquerda */
+.about .section-header {
+  margin-bottom: 0;
+  position: sticky;
+  top: 120px; /* ancora enquanto o conteúdo rola */
+}
+
+/* Conteúdo textual — coluna direita */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  position: relative;
+  padding-left: 36px;
+}
+
+/* Linha vertical elegante à esquerda do conteúdo */
+.about-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--accent) 20%,
+    var(--blue)   70%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.about-content p {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  line-height: 1.85;
+  margin: 0;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+
+  transition: color var(--transition);
+}
+
+.about-content p:last-child {
+  border-bottom: none;
+}
+
+.about-content p:hover {
+  color: var(--text-bright);
+}
+
+/* Palavra de destaque automática no primeiro parágrafo */
+.about-content p:first-child {
+  font-size: 1.12rem;
+  color: var(--text-bright);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .about {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about .section-header {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding-left: 24px;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ABOUT EDUCATION
+───────────────────────────────────────────────────── */
+
+.about-education {
+  padding: 34px 0 10px 0;
+
+  border-top: 1px solid var(--border);
+
+  opacity: 0;
+  transform: translateY(40px);
+
+  max-width: 600px;
+  margin: 200px;
+}
+
+.education-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: var(--accent);
+
+  margin-bottom: 18px;
+}
+
+.education-tag::before {
+  content: '';
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.about-education h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  margin: 0 0 12px;
+
+  color: var(--text-bright);
+}
+
+.about-education p {
+  padding: 0;
+  margin: 0;
+
+  border: none;
+
+  color: var(--text-body);
+
+  font-size: 1rem;
+
+  line-height: 1.7;
+}
+
+
+
+
+/* ═════════════════════════════════════════════════════
+   SOFT SKILLS
+═════════════════════════════════════════════════════ */
+
+.soft-skills {
+  /* Fundo com gradiente direcional discreto */
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba(37, 99, 235, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+/* Grid de 2×2 com gap elegante */
+.soft-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* CARD ─────────────── */
+.soft-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 36px 38px;
+  border-radius: var(--radius-card);
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition:
+    border-color var(--transition),
+    box-shadow   var(--transition),
+    transform    var(--transition);
+
+  /* Estado inicial (entrada via JS existente do projeto) */
+  cursor: default;
+}
+
+/* Glow ambiente no canto superior direito */
+.soft-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--blue-dim);
+  filter: blur(80px);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+/* Linha de acento no topo do card */
+.soft-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-glow),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+/* Hover state */
+.soft-card:hover {
+  border-color: var(--border-hover);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.08),
+    0 8px 40px rgba(0, 0, 0, 0.35),
+    0 0 60px rgba(37, 99, 235, 0.10);
+  transform: translateY(-6px);
+}
+
+.soft-card:hover::before,
+.soft-card:hover::after {
+  opacity: 1;
+}
+
+/* Ícone numerado no topo — reutiliza o pattern dos workflow cards */
+.soft-card h3 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #e2e8f0;
+  margin: 0 0 16px 0;
+  position: relative;
+  z-index: 1;
+
+  /* Underline accent ao hover */
+  display: inline-block;
+}
+
+.soft-card:hover h3 {
+  color: #f8fafc;
+}
+
+.soft-card p {
+  font-size: 0.97rem;
+  color: var(--text-body);
+  line-height: 1.8;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .soft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ═════════════════════════════════════════════════════
+   WORKFLOW
+═════════════════════════════════════════════════════ */
+
+.workflow {
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 100%,
+    rgba(56, 189, 248, 0.05) 0%,
+    transparent 70%
+  );
+}
+
+/* Grid de 4 colunas no desktop */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+/* Linha conectora horizontal entre cards */
+.workflow-grid::before {
+  content: '';
+  position: absolute;
+  top: 52px; /* alinha com o centro do número */
+  left: calc(12.5% + 8px);
+  right: calc(12.5% + 8px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-glow),
+    rgba(37, 99, 235, 0.3),
+    var(--accent-glow)
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* CARD ─────────────── */
+.workflow-card {
+  position: relative;
+  z-index: 1;
+
+  padding: 38px 28px 32px;
+  border-radius: var(--radius-card);
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    border-color var(--transition),
+    box-shadow   var(--transition),
+    transform    var(--transition),
+    background   var(--transition);
+
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Glow ambiente */
+.workflow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.04) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.workflow-card:hover {
+  border-color: var(--border-hover);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.08),
+    0 12px 48px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(37, 99, 235, 0.10);
+  transform: translateY(-8px);
+}
+
+.workflow-card:hover::before {
+  opacity: 1;
+}
+
+/* Número do step */
+.workflow-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(14, 165, 233, 0.15),
+    rgba(37, 99, 235, 0.15)
+  );
+  border: 1px solid rgba(56, 189, 248, 0.20);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+
+  margin: 0 auto 24px;
+
+  position: relative;
+  z-index: 2;
+
+  transition:
+    background   var(--transition),
+    border-color var(--transition),
+    box-shadow   var(--transition);
+}
+
+.workflow-card:hover .workflow-number {
+  background: linear-gradient(
+    135deg,
+    rgba(14, 165, 233, 0.25),
+    rgba(37, 99, 235, 0.25)
+  );
+  border-color: rgba(56, 189, 248, 0.40);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.20);
+}
+
+/* Título do step */
+.workflow-card h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #e2e8f0;
+  margin: 0 0 14px;
+  position: relative;
+  z-index: 2;
+  transition: color var(--transition);
+}
+
+.workflow-card:hover h3 {
+  color: #f8fafc;
+}
+
+/* Descrição */
+.workflow-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  transition: color var(--transition);
+}
+
+.workflow-card:hover p {
+  color: var(--text-body);
+}
+
+/* Responsivo */
+@media (max-width: 1100px) {
+  .workflow-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Remove a linha conectora em grids quebrados */
+  .workflow-grid::before {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow-card {
+    text-align: left;
+    padding: 28px 24px;
+  }
+
+  .workflow-number {
+    margin: 0 0 18px;
+  }
+
+  .section {
+    padding: 90px 6%;
+  }
+}
+
+
+/* =====================================================
+                 SCROLL  SKILLS 
+===================================================== */
+
+.about-content p,
+.soft-card,
+.workflow-card {
+
+  opacity: 0;
+
+  transform: translateY(80px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
