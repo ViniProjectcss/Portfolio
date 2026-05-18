@@ -1362,13 +1362,15 @@ video {
 
   /* ── Hero ── */
   .hero {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding: 120px 5% 80px;
-    gap: 48px;
-    min-height: 100svh;
-  }
+  height: auto;           /* ← ADICIONAR */
+  overflow: visible;      /* ← ADICIONAR */
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 5% 80px;
+  gap: 48px;
+  min-height: 100svh;
+}
 
   .hero-content {
     max-width: 100%;
@@ -1389,6 +1391,7 @@ video {
   }
 
   .hero-stats {
+    order: 3;
     justify-content: center;
     gap: 28px;
     margin-top: 44px;
