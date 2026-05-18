@@ -209,3 +209,36 @@ gsap.to(".about-education", {
   }
 
 });
+
+
+
+
+// ========================================
+// MODAL PROJETOS
+// ========================================
+
+function openModal(id) {
+
+  document.getElementById(id).classList.add('active');
+
+}
+
+function closeModal(id) {
+
+  document.getElementById(id).classList.remove('active');
+
+}
+
+window.addEventListener('click', function(e) {
+
+  document.querySelectorAll('.project-modal').forEach(modal => {
+
+    if (e.target === modal) {
+
+      modal.classList.remove('active');
+
+    }
+
+  });
+
+});

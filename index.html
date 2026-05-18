@@ -410,10 +410,11 @@
 
         </div>
 
-        <button class="project-button"
-          onclick="window.open('Projeto/MonitorEnvios/index.html', '_blank')">
 
-          Abrir Sistema
+        <button class="project-button"
+          onclick="openModal('WMS')">
+
+          Ver Sistema
 
         </button>
 
@@ -446,7 +447,6 @@
           <span>• Sincronização Multi-Marketplace</span>
           <span>• Atualização Forçada via ERP</span>
           <span>• Integração Bling API v3</span>
-          <span>• Monitoramento em Tempo Real</span>
 
         </div>
 
@@ -462,11 +462,12 @@
         </div>
 
         <button class="project-button"
-          onclick="window.open('Projeto/GerenciadorEstoque/index.html', '_blank')">
+          onclick="openModal('invetoryModal')">
 
-          Abrir Sistema
+          Ver Sistema
 
         </button>
+
 
       </div>
 
@@ -499,6 +500,7 @@
           <span>• Mapeamento de Variações</span>
           <span>• Orquestração 24/7</span>
           <span>• Logs em Tempo Real</span>
+          <span>• Renovação de Token automático</span>
 
         </div>
 
@@ -512,18 +514,262 @@
 
         </div>
 
-        <button class="project-button"
-          onclick="window.open('Projeto/Bling/index.html', '_blank')">
 
-          Abrir Sistema
+         <button class="project-button"
+          onclick="openModal('Bling')">
+
+          Ver Sistema
 
         </button>
+
 
       </div>
 
     </div>
 
   </section>
+
+
+
+
+   <!-- MODAL Sistema Operacional (Monitor de envios) -->
+<div class="project-modal" id="WMS">
+
+  <div class="modal-content">
+
+    <span class="close-modal"
+      onclick="closeModal('WMS')">
+      &times;
+    </span>
+
+    <span class="modal-tag">
+      SISTEMA DE ENVIOS
+    </span>
+
+    <h2>
+      Sistema Operacional WMS
+    </h2>
+
+    <p>
+      Este é um sistema que recebe todas as vendas 
+      de qualquer Marketplace cadastrado no ERP,
+      integração com os correios e com a lógistica 
+      de envios do Bling (Nota fiscal e Etiquetas)
+
+    </p>
+
+    <div class="modal-info">
+
+  <h3>Como funciona o sistema</h3>
+
+  <p>
+    O sistema centraliza pedidos de múltiplos marketplaces em um único painel. O módulo 
+    <strong>Conferência</strong> valida os produtos via bipagem (Bipi) antes de liberar as etiquetas, 
+    garantindo total segurança na expedição. Você pode testar todo esse fluxo usando o botão <strong>DEMO</strong>.
+  </p>
+
+  <p>
+    A geração de etiquetas e notas fiscais é automática: utiliza integração direta com os Correios para pedidos 
+    da <strong>Nuvemshop</strong> e o ERP Bling para os demais canais. O sistema também gera folhas de 
+    separação prontas para impressão.
+  </p>
+
+  <p>
+    Para fechar, um monitor inteligente detecta novos pedidos no ERP em tempo real e emite notificações 
+    personalizadas, enquanto o <strong>Filtro</strong> exibe dinamicamente apenas os marketplaces com pedidos ativos.
+  </p>
+</div>
+
+
+    <div class="modal-buttons">
+
+      <button class="modal-close-btn"
+        onclick="closeModal('WMS')">
+
+        Fechar
+
+      </button>
+
+      <button class="project-button"
+          onclick="window.location.href='Projeto/MonitorEnvios/index.html'">
+
+          Abrir Sistema
+
+        </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  <!-- MODAL GERENCIADOR DE ESTOQUE -->
+<div class="project-modal" id="invetoryModal">
+
+  <div class="modal-content">
+
+    <span class="close-modal"
+      onclick="closeModal('invetoryModal')">
+      &times;
+    </span>
+
+    <span class="modal-tag">
+      AUTOMAÇÃO DE ESTOQUE
+    </span>
+
+    <h2>
+      Gerenciador de Estoque Integrado
+    </h2>
+
+    <p>
+      Sistema desenvolvido para centralizar o controle
+      operacional de estoque entre o ERP Bling e múltiplos
+      marketplaces, automatizando sincronizações,
+      atualizações de saldo e movimentações em tempo real.
+    </p>
+
+
+    <div class="modal-info">
+
+      <h3>Como acessar o sistema simulação</h3>
+
+      <p>Login: admin</p>
+      <p>Senha: admin</p>
+
+      <h3>Como funciona</h3>
+
+      <p>
+        O botão <strong>Sincronizar Estoque</strong>
+        importa automaticamente produtos novos criados no Bling.
+      </p>
+
+      <p>
+        O botão <strong>BipI</strong> permite realizar
+        movimentações rápidas de entrada e saída de estoque.
+      </p>
+
+      <p>
+        O botão <strong>Atualizar Saldo</strong>
+        sincroniza o saldo mais recente do produto.
+      </p>
+
+      <p>
+        Diferente do fluxo tradicional do Bling,
+        onde a sincronização precisa ser realizada
+        manualmente marketplace por marketplace,
+        este sistema centraliza toda operação
+        em um único painel automatizado.
+      </p>
+
+    </div>
+
+    <div class="modal-buttons">
+
+      <button class="modal-close-btn"
+        onclick="closeModal('invetoryModal')">
+
+        Fechar
+
+      </button>
+
+      <button class="project-button"
+           onclick="window.location.href='Projeto/GerenciadorEstoque/index.html'">
+
+          Abrir Sistema
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  <!-- MODAL Bling Automation System -->
+<div class="project-modal" id="Bling">
+
+  <div class="modal-content">
+
+    <span class="close-modal"
+      onclick="closeModal('Bling')">
+      &times;
+    </span>
+
+    <span class="modal-tag">
+      AUTOMAÇÃO EMPRESARIAL
+    </span>
+
+    <h2>
+      Bling Automation System
+    </h2>
+
+    <p>
+      Este sistema realiza automações completas
+      para operações empresariais integradas
+      ao ERP Bling.
+    </p>
+
+
+    <div class="modal-info">
+  <h3>Como Funciona o Painel</h3>
+
+  <div class="modal-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+    
+    <!-- Coluna Esquerda -->
+    <div class="grid-col">
+      <h4>🔐 Gestão de Autenticação</h4>
+      <p>
+        Renovação automatizada de tokens a cada <strong>5h30</strong> com persistência direta no banco de dados. 
+        Centraliza e garante a segurança de acesso para todas as rotinas de desenvolvimento do ecossistema.
+      </p>
+    </div>
+
+    <!-- Coluna Direita -->
+    <div class="grid-col">
+      <h4>📦 Sincronização & Estoque (24/7)</h4>
+      <p>
+        Monitoramento contínuo do ERP para captura de pedidos nos status <em>Em Andamento</em> e <em>Atendido</em>.
+      </p>
+      <p>
+        <strong>Redundância de Segurança:</strong> Caso o ERP não processe a baixa do item vendido, o sistema executa a baixa de forma ativa.
+      </p>
+      <p>
+        <strong>Mapeamento de SKUs:</strong> Rastreia o produto principal, cruza os dados com o mapa de variações e atualiza os saldos de múltiplos SKUs vinculados em tempo real.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+    <div class="modal-buttons">
+
+      <button class="modal-close-btn"
+        onclick="closeModal('Bling')">
+
+        Fechar
+
+      </button>
+
+      <button class="project-button"
+          onclick="window.location.href='Projeto/Bling/index.html'">
+
+          Abrir Sistema
+
+        </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
 
   <!-- CONTATO -->
   <section class="contact section">
