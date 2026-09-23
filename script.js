@@ -242,3 +242,175 @@ window.addEventListener('click', function(e) {
   });
 
 });
+
+/* =====================================================================
+   FOTO — ANIMAÇÃO DE SCROLL (HERO → SOBRE MIM)
+   -----------------------------------------------------------------
+   Move a foto (.hero-image) da posição original no Hero até a área
+   reservada em "Sobre Mim" (.about-photo-target), acompanhando a
+   progressão do scroll (GSAP ScrollTrigger com scrub).
+
+   Não mexe em nenhum outro elemento do Hero: um placeholder do
+   mesmo tamanho é inserido no lugar da foto para que o layout
+   (textos, botões, stats, fundo, partículas) não se mova nem um
+   pixel.
+===================================================================== */
+(function () {
+
+  const heroImage   = document.querySelector('.hero-image');
+  const heroSection = document.querySelector('.hero');
+  const aboutSection = document.querySelector('.about');
+  const aboutTarget  = document.querySelector('.about-photo-target');
+
+  if (!heroImage || !heroSection || !aboutSection || !aboutTarget) return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  // Respeita usuários que pedem menos animação no sistema.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Abaixo desta largura o Hero já empilha (ver CSS), então a foto
+  // fica estática e a animação de deslocamento não é ativada.
+  const MIN_WIDTH = 992;
+
+  // Ajuste este valor (0 a 1) para escolher o quão "pelo centro"
+  // a foto passa no meio do trajeto. 0.5 = exatamente na metade.
+  const MEIO_TRAJETO = 0.55;
+
+  // "scrub" controla a suavidade/velocidade de resposta ao scroll:
+  // valores menores (ex: 0.2) seguem o scroll quase instantaneamente,
+  // valores maiores (ex: 1.5) deixam a foto "atrasada", mais suave.
+  const SCRUB = 0.6;
+
+  let placeholder = null;
+  let heroPhotoTimeline = null;
+
+  function pageOffset(rect) {
+    return {
+      left: rect.left + (window.scrollX || window.pageXOffset),
+      top: rect.top + (window.scrollY || window.pageYOffset),
+      width: rect.width,
+      height: rect.height
+    };
+  }
+
+  function destroyPhotoScroll() {
+    if (heroPhotoTimeline) {
+      heroPhotoTimeline.scrollTrigger && heroPhotoTimeline.scrollTrigger.kill();
+      heroPhotoTimeline.kill();
+      heroPhotoTimeline = null;
+    }
+
+    if (placeholder && placeholder.parentNode) {
+      placeholder.parentNode.insertBefore(heroImage, placeholder);
+      placeholder.parentNode.removeChild(placeholder);
+      placeholder = null;
+    }
+
+    heroImage.style.position = '';
+    heroImage.style.left = '';
+    heroImage.style.top = '';
+    heroImage.style.width = '';
+    heroImage.style.height = '';
+    heroImage.style.margin = '';
+    heroImage.style.zIndex = '';
+    heroImage.style.willChange = '';
+  }
+
+  function setupPhotoScroll() {
+
+    if (window.innerWidth < MIN_WIDTH) {
+      destroyPhotoScroll();
+      return;
+    }
+
+    if (heroPhotoTimeline) return; // já configurado
+
+    // Posição/tamanho atuais da foto (exatamente como está hoje).
+    const start = pageOffset(heroImage.getBoundingClientRect());
+
+    // Placeholder ocupa o lugar da foto no layout flex do Hero,
+    // preservando o espaçamento entre hero-content / hero-image.
+    placeholder = document.createElement('div');
+    placeholder.style.width = start.width + 'px';
+    placeholder.style.height = start.height + 'px';
+    placeholder.style.flexShrink = '0';
+    placeholder.setAttribute('aria-hidden', 'true');
+    heroImage.parentNode.insertBefore(placeholder, heroImage);
+
+    // A foto passa a ser posicionada em coordenadas de página,
+    // livre do "overflow: hidden" do Hero.
+    document.body.appendChild(heroImage);
+
+    heroImage.style.position = 'absolute';
+    heroImage.style.margin = '0';
+    heroImage.style.left = start.left + 'px';
+    heroImage.style.top = start.top + 'px';
+    heroImage.style.width = start.width + 'px';
+    heroImage.style.height = start.height + 'px';
+    heroImage.style.zIndex = '500';
+    heroImage.style.willChange = 'left, top, width, height';
+
+    // Posição final = área reservada em "Sobre Mim".
+    const end = pageOffset(aboutTarget.getBoundingClientRect());
+
+    // Ponto intermediário: centro da tela, criando a trajetória
+    // diagonal entre o Hero e "Sobre Mim".
+    const midWidth  = start.width + (end.width - start.width) * MEIO_TRAJETO;
+    const midHeight = start.height + (end.height - start.height) * MEIO_TRAJETO;
+    const mid = {
+      left: (window.innerWidth / 2) - (midWidth / 2),
+      top: start.top + (end.top - start.top) * MEIO_TRAJETO,
+      width: midWidth,
+      height: midHeight
+    };
+
+    heroPhotoTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        endTrigger: aboutSection,
+        end: 'top top',
+        scrub: SCRUB,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Duração explícita (1) em cada trecho + "posicionamento
+    // por encadeamento" (a segunda animação começa exatamente
+    // onde a primeira termina, sem usar um instante fixo como
+    // "1"). Isso elimina o intervalo "morto" que fazia a foto
+    // ficar parada no meio do trajeto.
+    heroPhotoTimeline
+      .to(heroImage, {
+        left: mid.left,
+        top: mid.top,
+        width: mid.width,
+        height: mid.height,
+        duration: 1,
+        ease: 'power1.inOut'
+      })
+      .to(heroImage, {
+        left: end.left,
+        top: end.top,
+        width: end.width,
+        height: end.height,
+        duration: 1,
+        ease: 'power1.inOut'
+      });
+  }
+
+  window.addEventListener('load', setupPhotoScroll);
+
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      destroyPhotoScroll();
+      setupPhotoScroll();
+      ScrollTrigger.refresh();
+    }, 250);
+  });
+
+})();
