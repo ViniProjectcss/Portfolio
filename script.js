@@ -414,3 +414,43 @@ window.addEventListener('click', function(e) {
   });
 
 })();
+
+/* =====================================================================
+   NAVBAR — scroll state + menu mobile
+   (Bloco novo, não interfere na animação de scroll da foto acima)
+===================================================================== */
+(function () {
+
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('navToggle');
+
+  if (navbar) {
+    const onScroll = function () {
+      if (window.scrollY > 40) {
+        navbar.classList.add('is-scrolled');
+      } else {
+        navbar.classList.remove('is-scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  }
+
+  if (navToggle && navbar) {
+    navToggle.addEventListener('click', function () {
+      navbar.classList.toggle('is-open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navbar.classList.remove('is-open');
+      });
+    });
+  }
+
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+})();

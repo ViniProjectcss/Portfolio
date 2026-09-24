@@ -6,818 +6,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Vinicius Macedo | Desenvolvedor Full Stack</title>
+  <meta name="description" content="Introdução interativa ao portfólio de Vinicius Macedo.">
 
-  <link rel="stylesheet" href="style.css">
-
-  <link rel="stylesheet" href="sections-premium.css"> 
-  
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <!-- ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="assets/intro.css">
 </head>
 
 <body>
 
-  <!-- PARTICLES -->
-  <div id="particles-js"></div>
+  <main class="intro-shell" id="introShell" aria-label="Introdução do portfólio">
 
-  <!-- HERO -->
-  <section class="hero">
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <canvas id="particleField" class="particle-field" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
 
-    <div class="hero-content">
+    <div class="atom-wrap" id="atomWrap" aria-hidden="true">
+      <svg class="atom-symbol" viewBox="0 0 400 400">
+        <defs>
+          <filter id="atomGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4.2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <radialGradient id="nucleusGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="45%" stop-color="#8bdcff" />
+            <stop offset="100%" stop-color="#1d6fa6" stop-opacity="0" />
+          </radialGradient>
+        </defs>
 
-      <p class="tag">
-        DESENVOLVEDOR FULL STACK
-      </p>
+        <!-- órbita 1 -->
+        <g transform="rotate(0 200 200)">
+          <path d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            class="orbit-ring" />
+          <path id="orbitPath1" d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            pathLength="100" class="orbit-trail orbit-trail-1" />
+          <circle r="5.5" class="electron" filter="url(#atomGlow)">
+            <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#orbitPath1" />
+            </animateMotion>
+          </circle>
+        </g>
 
-      <h1 class="title">
-  Automações e sistemas<br>
-  para operações reais.
-</h1>
+        <!-- órbita 2 -->
+        <g transform="rotate(60 200 200)">
+          <path d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            class="orbit-ring" />
+          <path id="orbitPath2" d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            pathLength="100" class="orbit-trail orbit-trail-2" />
+          <circle r="5.5" class="electron" filter="url(#atomGlow)">
+            <animateMotion dur="4.4s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#orbitPath2" />
+            </animateMotion>
+          </circle>
+        </g>
 
-      <p class="subtitle">
-        Desenvolvedor focado em automações,
-        integrações de sistemas, plataformas web
-        e soluções operacionais.
-        Transformo processos manuais em sistemas
-        modernos, organizados e escaláveis.
-      </p>
+        <!-- órbita 3 -->
+        <g transform="rotate(120 200 200)">
+          <path d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            class="orbit-ring" />
+          <path id="orbitPath3" d="M 50,200 A150,58 0 1,1 350,200 A150,58 0 1,1 50,200"
+            pathLength="100" class="orbit-trail orbit-trail-3" />
+          <circle r="5.5" class="electron" filter="url(#atomGlow)">
+            <animateMotion dur="5.2s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#orbitPath3" />
+            </animateMotion>
+          </circle>
+        </g>
 
-      <div class="hero-buttons">
+        <circle cx="200" cy="200" r="16" fill="url(#nucleusGradient)" class="nucleus" filter="url(#atomGlow)" />
+      </svg>
+    </div>
 
-        <a href="https://wa.me/5511976867056"
-          target="_blank"
-          class="outline">
-          Contato
-        </a>
+    <section class="intro-content">
 
-        <a href="mailto:vinimacedoj@gmail.com"
-          class="outline">
-          Email
-        </a>
+      <p class="eyebrow">DESENVOLVEDOR FULL STACK / AUTOMAÇÕES &amp; SISTEMAS</p>
 
-        <a href="https://www.linkedin.com/in/vinicius-macedo-73383b278/"
-          target="_blank"
-          class="outline">
-          LinkedIn
-        </a>
-
-        <a href="https://github.com/ViniProjectcss"
-          target="_blank"
-          class="outline">
-          GitHub
-        </a>
-
+      <div class="logo-stage" id="logoStage" aria-label="Vinicius Macedo">
+        <!-- letras inseridas via JS -->
+        <span class="logo-shine" aria-hidden="true"></span>
       </div>
 
-    </div>
+      <p class="intro-caption">TRANSFORMANDO PROCESSOS EM SISTEMAS<span>_</span></p>
 
+      <a class="portfolio-button" id="enterPortfolio" href="portfolio.html" aria-label="Entrar no portfólio">
+        <span>ENTRAR NO PORTFÓLIO</span>
+        <span class="button-arrow" aria-hidden="true">↗</span>
+      </a>
 
-    <div class="hero-stats">
+    </section>
 
-  <div class="stat">
-    <h3>1 ano e 4 meses</h3>
-    <p>atuando com automações e sistemas web</p>
-  </div>
-<div class="stat">
-    <h3>6 projetos em produção</h3>
-    <p>implantados na operação da Esportes em Linha</p>
-  </div>
-<div class="stat">
-    <h3>100% dedicação</h3>
-    <p>compromisso total com performance e qualidade</p>
-  </div>
-<div class="stat">
-    <h3>Resolução de problemas</h3>
-    <p>curiosidade e foco para encontrar soluções inteligentes</p>
-  </div>
+    <button class="skip-button" id="skipButton" type="button">Pular intro <span aria-hidden="true">↗</span></button>
 
-</div>
+    <div class="intro-status"><span></span> SISTEMA ONLINE</div>
 
+  </main>
 
-    
-
-    <div class="hero-image">
-
-      <div class="image-glow"></div>
-
-      <img src="assets/foto.jpeg" alt="Vinicius">
-
-    </div>
-
-    <div class="hero-glow"></div>
-
-  </section>
-
-
-
-</div>
-
-  <!-- SOBRE MIM -->
-  <section class="about section">
-
-    <div class="section-header">
-
-      <span class="section-tag">
-        SOBRE MIM
-      </span>
-
-      <h2 class="section-title">
-        Mais do que código.
-      </h2>
-
-      <!-- Área invisível: marca a posição/tamanho final da foto
-           que chega vinda do Hero durante o scroll. Fica logo
-           abaixo do título para a foto parar exatamente ali. -->
-      <div class="about-photo-target" aria-hidden="true"></div>
-
-    </div>
-
-    <div class="about-content">
-
-      <p>
-        Desenvolvo sistemas pensando não apenas
-        na parte técnica, mas também na organização,
-        automação de processos e experiência operacional.
-      </p>
-
-      <p>
-        Tenho experiência criando plataformas web,
-        integrações com APIs, sistemas internos,
-        automações empresariais e gerenciamento
-        de operações logísticas.
-      </p>
-
-      <p>
-        Meu foco é transformar processos manuais
-        em soluções inteligentes e automaticas, organizadas
-        e eficientes.
-      </p>
-
-    </div>
-
-
-</section>
-
-
-<!-- FORMAÇÃO -->
-
-  <div class="about-education">
-
-    <span class="education-tag">
-      FORMAÇÃO
-    </span>
-
-    <h3>
-      Análise e Desenvolvimento de Sistemas
-    </h3>
-
-    <p>
-      Universidade Anhembi Morumbi
-    </p>
-
-  </div>
-
-
-
-  <!-- SOFT SKILLS -->
-<section class="soft-skills section">
-
-  <div class="section-header">
-
-    <span class="section-tag">
-      COMO EU PENSO E EXECUTO
-    </span>
-
-    <h2 class="section-title">
-      Transformando processos manuais em operações inteligentes.
-    </h2>
-
-  </div>
-
-  <div class="soft-grid">
-
-    <div class="soft-card">
-
-      <h3>
-        Visão Operacional
-      </h3>
-
-      <p>
-        Analiso processos internos para identificar
-        gargalos, erros operacionais e tarefas
-        repetitivas que impactam produtividade
-        e logística.
-      </p>
-
-    </div>
-
-    <div class="soft-card">
-
-      <h3>
-        Resolução de Problemas
-      </h3>
-
-      <p>
-        Desenvolvo sistemas focados em reduzir
-        falhas humanas, automatizar processos
-        e aumentar controle operacional
-        em estoque, expedição e vendas.
-      </p>
-
-    </div>
-
-    <div class="soft-card">
-
-      <h3>
-        Planejamento e Integração
-      </h3>
-
-      <p>
-        Estruturo arquitetura, banco de dados,
-        APIs e automações pensando em integração
-        entre marketplaces, ERP, logística
-        e sistemas internos.
-      </p>
-
-    </div>
-
-    <div class="soft-card">
-
-      <h3>
-        Evolução Contínua
-      </h3>
-
-      <p>
-        Busco constantemente melhorar
-        performance, usabilidade e eficiência
-        operacional através de tecnologia
-        aplicada ao dia a dia da empresa.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-  <!-- PROCESSO -->
-  <section class="workflow section">
-
-    <div class="section-header">
-
-      <span class="section-tag">
-        PROCESSO
-      </span>
-
-      <h2 class="section-title">
-        Como os projetos são desenvolvidos.
-      </h2>
-
-    </div>
-
-    <div class="workflow-grid">
-
-      <div class="workflow-card">
-
-        <span class="workflow-number">
-          01
-        </span>
-
-        <h3>
-          Análise
-        </h3>
-
-        <p>
-          Entendimento do processo operacional
-          e identificação dos problemas.
-        </p>
-
-      </div>
-
-      <div class="workflow-card">
-
-        <span class="workflow-number">
-          02
-        </span>
-
-        <h3>
-          Planejamento
-        </h3>
-
-        <p>
-          Estruturação das integrações,
-          banco de dados e arquitetura do sistema.
-        </p>
-
-      </div>
-
-      <div class="workflow-card">
-
-        <span class="workflow-number">
-          03
-        </span>
-
-        <h3>
-          Desenvolvimento
-        </h3>
-
-        <p>
-          Construção da aplicação com foco
-          em performance e organização.
-        </p>
-
-      </div>
-
-      <div class="workflow-card">
-
-        <span class="workflow-number">
-          04
-        </span>
-
-        <h3>
-          Evolução
-        </h3>
-
-        <p>
-          Monitoramento contínuo, melhorias
-          e novas funcionalidades.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- PROJETOS -->
-  <section class="projects section">
-
-    <div class="section-header">
-
-      <span class="section-tag">
-        PROJETOS
-      </span>
-
-      <h2 class="section-title">
-        Sistemas desenvolvidos para operações reais.
-      </h2>
-
-    </div>
-
-    <div class="projects-grid">
-
-      <!-- CARD 1 -->
-      <div class="project-card">
-
-        <div class="card-glow"></div>
-
-        <span class="project-tag">
-          LOGÍSTICA OPERACIONAL
-        </span>
-
-        <h3>
-          Sistema Operacional WMS
-        </h3>
-
-        <p>
-          Sistema desenvolvido para otimizar
-          processos logísticos internos,
-          centralizando pedidos, impressão
-          automática de etiquetas e conferência
-          operacional em uma única plataforma.
-        </p>
-
-        <div class="project-features">
-
-          <span>• Integração com Marketplaces</span>
-          <span>• Emissão Automática de Etiquetas</span>
-          <span>• Integração com Correios</span>
-          <span>• Impressão em Massa</span>
-          <span>• Conferência via Código de Barras</span>
-          <span>• Validação Inteligente de Pedidos</span>
-          <span>• Alertas Sonoros</span>
-          <span>• Aplicação Interna via TrueNAS</span>
-
-        </div>
-
-        <div class="project-tech">
-
-          <span>Python</span>
-          <span>Node.js</span>
-          <span>Flask</span>
-          <span>MySQL</span>
-          <span>REST API</span>
-          <span>Docker</span>
-
-        </div>
-
-
-        <button class="project-button"
-          onclick="openModal('WMS')">
-
-          Ver Sistema
-
-        </button>
-
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="project-card">
-
-        <div class="card-glow"></div>
-
-        <span class="project-tag">
-          GESTÃO DE ESTOQUE
-        </span>
-
-        <h3>
-          Inventory Manager
-        </h3>
-
-        <p>
-          Plataforma de gerenciamento de estoque
-          integrada ao ERP Bling,
-          responsável pela sincronização automática
-          entre múltiplos marketplaces.
-        </p>
-
-        <div class="project-features">
-
-          <span>• Controle Manual de Estoque</span>
-          <span>• Entrada e Saída de Produtos</span>
-          <span>• Sincronização Multi-Marketplace</span>
-          <span>• Atualização Forçada via ERP</span>
-          <span>• Integração Bling API v3</span>
-
-        </div>
-
-        <div class="project-tech">
-
-          <span>Python</span>
-          <span>Node.js</span>
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>MariaDB</span>
-          <span>REST API</span>
-
-        </div>
-
-        <button class="project-button"
-          onclick="openModal('invetoryModal')">
-
-          Ver Sistema
-
-        </button>
-
-
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="project-card">
-
-        <div class="card-glow"></div>
-
-        <span class="project-tag">
-          AUTOMAÇÃO EMPRESARIAL
-        </span>
-
-        <h3>
-          Bling Automation System
-        </h3>
-
-        <p>
-          Sistema de automação responsável
-          pelo gerenciamento de estoque,
-          renovação automática de tokens,
-          sincronização de SKUs e integração
-          contínua com marketplaces.
-        </p>
-
-        <div class="project-features">
-
-          <span>• Refresh Token Automático</span>
-          <span>• Integração Bling API v3</span>
-          <span>• Sincronização de Estoque</span>
-          <span>• Mapeamento de Variações</span>
-          <span>• Orquestração 24/7</span>
-          <span>• Logs em Tempo Real</span>
-          <span>• Renovação de Token automático</span>
-
-        </div>
-
-        <div class="project-tech">
-
-          <span>Python</span>
-          <span>Docker</span>
-          <span>MariaDB</span>
-          <span>REST API</span>
-          <span>TrueNAS Scale</span>
-
-        </div>
-
-
-         <button class="project-button"
-          onclick="openModal('Bling')">
-
-          Ver Sistema
-
-        </button>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-
-   <!-- MODAL Sistema Operacional (Monitor de envios) -->
-<div class="project-modal" id="WMS">
-
-  <div class="modal-content">
-
-    <span class="close-modal"
-      onclick="closeModal('WMS')">
-      &times;
-    </span>
-
-    <span class="modal-tag">
-      SISTEMA DE ENVIOS
-    </span>
-
-    <h2>
-      Sistema Operacional WMS
-    </h2>
-
-    <p>
-      Este é um sistema que recebe todas as vendas 
-      de qualquer Marketplace cadastrado no ERP,
-      integração com os correios e com a lógistica 
-      de envios do Bling (Nota fiscal e Etiquetas)
-
-    </p>
-
-    <div class="modal-info">
-
-  <h3>Como funciona o sistema</h3>
-
-  <p>
-    O sistema centraliza pedidos de múltiplos marketplaces em um único painel. O módulo 
-    <strong>Conferência</strong> valida os produtos via bipagem (Bipi) antes de liberar as etiquetas, 
-    garantindo total segurança na expedição. Você pode testar todo esse fluxo usando o botão <strong>DEMO</strong>.
-  </p>
-
-  <p>
-    A geração de etiquetas e notas fiscais é automática: utiliza integração direta com os Correios para pedidos 
-    da <strong>Nuvemshop</strong> e o ERP Bling para os demais canais. O sistema também gera folhas de 
-    separação prontas para impressão.
-  </p>
-
-  <p>
-    Para fechar, um monitor inteligente detecta novos pedidos no ERP em tempo real e emite notificações 
-    personalizadas, enquanto o <strong>Filtro</strong> exibe dinamicamente apenas os marketplaces com pedidos ativos.
-  </p>
-</div>
-
-
-    <div class="modal-buttons">
-
-      <button class="modal-close-btn"
-        onclick="closeModal('WMS')">
-
-        Fechar
-
-      </button>
-
-      <button class="project-button"
-          onclick="window.location.href='Projeto/MonitorEnvios/index.html'">
-
-          Abrir Sistema
-
-        </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-
-  <!-- MODAL GERENCIADOR DE ESTOQUE -->
-<div class="project-modal" id="invetoryModal">
-
-  <div class="modal-content">
-
-    <span class="close-modal"
-      onclick="closeModal('invetoryModal')">
-      &times;
-    </span>
-
-    <span class="modal-tag">
-      AUTOMAÇÃO DE ESTOQUE
-    </span>
-
-    <h2>
-      Gerenciador de Estoque Integrado
-    </h2>
-
-    <p>
-      Sistema desenvolvido para centralizar o controle
-      operacional de estoque entre o ERP Bling e múltiplos
-      marketplaces, automatizando sincronizações,
-      atualizações de saldo e movimentações em tempo real.
-    </p>
-
-
-    <div class="modal-info">
-
-      <h3>Como acessar o sistema simulação</h3>
-
-      <p>Login: admin</p>
-      <p>Senha: admin</p>
-
-      <h3>Como funciona</h3>
-
-      <p>
-        O botão <strong>Sincronizar Estoque</strong>
-        importa automaticamente produtos novos criados no Bling.
-      </p>
-
-      <p>
-        O botão <strong>BipI</strong> permite realizar
-        movimentações rápidas de entrada e saída de estoque.
-      </p>
-
-      <p>
-        O botão <strong>Atualizar Saldo</strong>
-        sincroniza o saldo mais recente do produto.
-      </p>
-
-      <p>
-        Diferente do fluxo tradicional do Bling,
-        onde a sincronização precisa ser realizada
-        manualmente marketplace por marketplace,
-        este sistema centraliza toda operação
-        em um único painel automatizado.
-      </p>
-
-    </div>
-
-    <div class="modal-buttons">
-
-      <button class="modal-close-btn"
-        onclick="closeModal('invetoryModal')">
-
-        Fechar
-
-      </button>
-
-      <button class="project-button"
-           onclick="window.location.href='Projeto/GerenciadorEstoque/index.html'">
-
-          Abrir Sistema
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-
-  <!-- MODAL Bling Automation System -->
-<div class="project-modal" id="Bling">
-
-  <div class="modal-content">
-
-    <span class="close-modal"
-      onclick="closeModal('Bling')">
-      &times;
-    </span>
-
-    <span class="modal-tag">
-      AUTOMAÇÃO EMPRESARIAL
-    </span>
-
-    <h2>
-      Bling Automation System
-    </h2>
-
-    <p>
-      Este sistema realiza automações completas
-      para operações empresariais integradas
-      ao ERP Bling.
-    </p>
-
-
-    <div class="modal-info">
-  <h3>Como Funciona o Painel</h3>
-
-   <div class="modal-grid">
-
-  <!-- Coluna Esquerda -->
-  <div class="grid-col">
-    <h4>🔐 Gestão de Autenticação</h4>
-
-    <p>
-      Renovação automatizada de tokens a cada <strong>5h30</strong>
-      com persistência direta no banco de dados.
-      Centraliza e garante a segurança de acesso para todas
-      as rotinas de desenvolvimento do ecossistema.
-    </p>
-  </div>
-
-  <!-- Coluna Direita -->
-  <div class="grid-col">
-
-    <h4>📦 Sincronização & Estoque (24/7)</h4>
-
-    <p>
-      Monitoramento contínuo do ERP para captura de pedidos
-      nos status <em>Em Andamento</em> e <em>Atendido</em>.
-    </p>
-
-    <p>
-      <strong>Redundância de Segurança:</strong>
-      Caso o ERP não processe a baixa do item vendido,
-      o sistema executa a baixa de forma ativa.
-    </p>
-
-    <p>
-      <strong>Mapeamento de SKUs:</strong>
-      Rastreia o produto principal, cruza os dados com
-      o mapa de variações e atualiza os saldos de múltiplos
-      SKUs vinculados em tempo real.
-    </p>
-
-  </div>
-
-</div>
-</div>
-
-
-    <div class="modal-buttons">
-
-      <button class="modal-close-btn"
-        onclick="closeModal('Bling')">
-
-        Fechar
-
-      </button>
-
-      <button class="project-button"
-          onclick="window.location.href='Projeto/Bling/index.html'">
-
-          Abrir Sistema
-
-        </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-
-
-  <!-- CONTATO -->
-  <section class="contact section">
-
-    <div class="section-header">
-
-
-      <h2 class="section-title">
-        Vamos criar algo incrível.
-      </h2>
-
-      <p class="contact-text">
-  Disponível para freelas, automações, desenvolvimento web
-  e oportunidades para integrar em times de tecnologia.
-</p>
-
-    </div>
-
-  
-
-  </section>
-
-  <!-- PARTICLES -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <script src="./assets/particles.js"></script>
-
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
+  <script src="assets/intro.js"></script>
 
 </body>
 
