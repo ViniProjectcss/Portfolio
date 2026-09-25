@@ -29,6 +29,151 @@ gsap.from(".hero-buttons", {
   delay: 0.9
 });
 
+// INTEGRATIONS
+
+gsap.utils.toArray(".integration-card").forEach((card) => {
+
+  gsap.fromTo(card,
+
+    {
+      opacity: 0,
+      y: 80
+    },
+
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+
+      scrollTrigger: {
+        trigger: card,
+        start: "top 85%",
+
+        toggleActions: "play reset play reset"
+      }
+    }
+
+  );
+
+});
+
+// SKILLS
+
+gsap.fromTo(".skills-carousel-wrapper", { opacity: 0, y: 60 }, {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  scrollTrigger: {
+    trigger: ".skills-carousel-wrapper",
+    start: "top 85%",
+    toggleActions: "play reset play reset"
+  }
+});
+
+gsap.fromTo(".learning-card", { opacity: 0, y: 60 }, {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  scrollTrigger: {
+    trigger: ".learning-card",
+    start: "top 88%",
+    toggleActions: "play reset play reset"
+  }
+});
+
+// ========================================
+// CARROSSEL DE HABILIDADES
+// ========================================
+
+(function () {
+
+  const track = document.getElementById('skillsTrack');
+  const carousel = document.getElementById('skillsCarousel');
+  const prevBtn = document.getElementById('skillPrev');
+  const nextBtn = document.getElementById('skillNext');
+  const dotsContainer = document.getElementById('skillDots');
+
+  if (!track || !carousel) return;
+
+  const cards = Array.from(track.querySelectorAll('.skill-card'));
+  let currentIndex = 0;
+
+  function getVisibleCards() {
+    const containerWidth = carousel.offsetWidth;
+    const cardWidth = cards[0].offsetWidth + 22;
+    return Math.max(1, Math.floor(containerWidth / cardWidth));
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, cards.length - getVisibleCards());
+  }
+
+  function getCardWidth() {
+    return cards[0].offsetWidth + 22;
+  }
+
+  function updateCarousel() {
+    const offset = currentIndex * getCardWidth();
+    track.style.transform = `translateX(-${offset}px)`;
+    updateDots();
+  }
+
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    const totalDots = getMaxIndex() + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'carousel-dot' + (i === currentIndex ? ' active' : '');
+      dot.addEventListener('click', function () {
+        currentIndex = i;
+        updateCarousel();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateDots() {
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  prevBtn.addEventListener('click', function () {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    } else {
+      currentIndex = getMaxIndex();
+      updateCarousel();
+    }
+  });
+
+  nextBtn.addEventListener('click', function () {
+    if (currentIndex < getMaxIndex()) {
+      currentIndex++;
+      updateCarousel();
+    } else {
+      currentIndex = 0;
+      updateCarousel();
+    }
+  });
+
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (currentIndex > getMaxIndex()) currentIndex = getMaxIndex();
+      buildDots();
+      updateCarousel();
+    }, 200);
+  });
+
+  buildDots();
+  updateCarousel();
+
+})();
+
 // PROJETOS
 
 async function carregarProjetos() {
