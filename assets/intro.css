@@ -188,9 +188,9 @@ button { font: inherit; }
   transform: rotateZ(calc(var(--i) * 60deg)) rotateX(var(--tilt));
 }
 
-.ring-1 { --i: 0; --trail-rgb: 139, 220, 255; --orbit: 3.6s; }
-.ring-2 { --i: 1; --trail-rgb: 166, 236, 255; --orbit: 4.4s; --dir: reverse; }
-.ring-3 { --i: 2; --trail-rgb: 201, 182, 255; --orbit: 5.2s; }
+.ring-1 { --i: 0; --trail-rgb: 139, 220, 255; --orbit: 1.8s; }
+.ring-2 { --i: 1; --trail-rgb: 166, 236, 255; --orbit: 2.2s; --dir: reverse; }
+.ring-3 { --i: 2; --trail-rgb: 201, 182, 255; --orbit: 2.6s; }
 
 /* o anel é uma "faixa" com espessura (como no vídeo): 5 aros finos empilhados
    ao longo do eixo do anel. Quando inclina, dá volume de verdade. */
@@ -313,15 +313,31 @@ button { font: inherit; }
      89%/100% -> curva de volta e assenta no ponto 5 (centro, atrás das
                  letras, posição de repouso de sempre) */
 @keyframes atom-drift {
-  0%   { transform: translate3d(118vw, -62vh, 0); animation-timing-function: ease-in; }
-  10%  { transform: translate3d(68vw, -32vh, 0); }
-  22%  { transform: translate3d(5vw, -14vh, 0); }
-  32%  { transform: translate3d(-40vw, -4vh, 0); }
-  44%  { transform: translate3d(-30vw, 10vh, 0); }
-  56%  { transform: translate3d(4vw, 18vh, 0); }
-  67%  { transform: translate3d(22vw, 6vh, 0); }
-  78%  { transform: translate3d(36vw, -6vh, 0); }
-  89%  { transform: translate3d(18vw, -3vh, 0); animation-timing-function: ease-out; }
+  0%   { transform: translate3d(118.0vw, -62.0vh, 0); animation-timing-function: ease-in; }
+  4%   { transform: translate3d(125.6vw, 11.9vh, 0); }
+  8%   { transform: translate3d(93.2vw, 74.2vh, 0); }
+  12%  { transform: translate3d(35.3vw, 106.5vh, 0); }
+  16%  { transform: translate3d(-26.8vw, 101.9vh, 0); }
+  20%  { transform: translate3d(-73.2vw, 66.1vh, 0); }
+  24%  { transform: translate3d(-90.9vw, 14.4vh, 0); }
+  28%  { transform: translate3d(-78.1vw, -35.0vh, 0); }
+  32%  { transform: translate3d(-42.9vw, -66.6vh, 0); }
+  36%  { transform: translate3d(0.5vw, -73.0vh, 0); }
+  40%  { transform: translate3d(36.9vw, -55.8vh, 0); }
+  44%  { transform: translate3d(55.9vw, -24.2vh, 0); }
+  48%  { transform: translate3d(54.3vw, 9.3vh, 0); }
+  52%  { transform: translate3d(36.3vw, 33.7vh, 0); }
+  56%  { transform: translate3d(10.7vw, 42.7vh, 0); }
+  60%  { transform: translate3d(-12.6vw, 36.6vh, 0); }
+  64%  { transform: translate3d(-26.5vw, 20.6vh, 0); }
+  68%  { transform: translate3d(-28.5vw, 2.3vh, 0); }
+  72%  { transform: translate3d(-21.0vw, -11.4vh, 0); }
+  76%  { transform: translate3d(-9.2vw, -17.1vh, 0); }
+  80%  { transform: translate3d(1.2vw, -15.1vh, 0); }
+  84%  { transform: translate3d(6.9vw, -8.9vh, 0); }
+  88%  { transform: translate3d(7.2vw, -2.5vh, 0); }
+  92%  { transform: translate3d(4.3vw, 1.1vh, 0); }
+  96%  { transform: translate3d(1.2vw, 1.3vh, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 
@@ -414,17 +430,40 @@ button { font: inherit; }
   text-shadow: 0 0 24px rgba(116, 211, 255, .14), 0 5px 34px rgba(0, 0, 0, .8);
 }
 
+/* As letras só começam a "carimbar" depois que o átomo termina o voo
+   (--flight 3.2s + --flight-delay .1s = 3.3s, definidos em .atom-stage
+   ali em cima — não duplicamos a variável de propósito, pra deixar bem
+   explícito que esse 3.3s é só uma referência de tempo, e não altera o
+   átomo em nada). Cada letra cai de cima como um bloco pesado, bate,
+   esmaga (squash) e assenta — como um carimbo/martelo batendo. */
 .logo-letter {
   --letter-index: 0;
+  position: relative;
   display: inline-block;
   color: #d8f4ff;
   opacity: 0;
   transform-origin: 50% 100%;
-  animation: letter-life 3.35s calc(var(--letter-index) * 90ms) cubic-bezier(.18, .78, .25, 1) both;
+  animation: letter-stamp .62s calc(3.3s + var(--letter-index) * 110ms) cubic-bezier(.2, .85, .25, 1) both;
   filter: drop-shadow(0 0 18px rgba(83, 203, 255, .3));
 }
 
+/* anel de poeira/impacto no "chão" da letra, no instante em que ela bate */
+.logo-letter::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 130%;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(139, 220, 255, .55), rgba(139, 220, 255, 0) 72%);
+  opacity: 0;
+  pointer-events: none;
+  animation: letter-impact-ring .45s calc(3.3s + var(--letter-index) * 110ms + .32s) ease-out both;
+}
+
 .logo-space { width: .28em; }
+.logo-space::after { content: none; }
 
 .logo-shine {
   position: absolute;
@@ -432,7 +471,7 @@ button { font: inherit; }
   opacity: 0;
   background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .95) 50%, transparent 60%);
   mix-blend-mode: screen;
-  animation: shine 1s 2.5s ease-out forwards;
+  animation: shine 1s 4.75s ease-out forwards;
 }
 
 .intro-caption {
@@ -440,7 +479,7 @@ button { font: inherit; }
   color: var(--intro-muted);
   font-size: 10px;
   opacity: 0;
-  animation: fade-up .7s 2.7s forwards;
+  animation: fade-up .7s 4.9s forwards;
 }
 
 .intro-caption span {
@@ -467,7 +506,7 @@ button { font: inherit; }
   opacity: 0;
   filter: blur(7px);
   transform: translateY(16px);
-  animation: button-in .75s 3.15s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation: button-in .75s 5.3s cubic-bezier(.2, .8, .2, 1) forwards;
   transition: transform .3s, background .3s, box-shadow .3s;
 }
 
@@ -536,29 +575,32 @@ button { font: inherit; }
 .is-complete .logo-letter { opacity: 1; animation: settle .5s ease-out forwards; }
 .is-complete .skip-button { display: none; }
 
-@keyframes letter-life {
+/* queda pesada -> bate -> esmaga (squash) -> retorno com leve overshoot
+   -> assenta. É o "carimbo batendo" que substitui o efeito antigo. */
+@keyframes letter-stamp {
   0% {
     opacity: 0;
-    transform: translate(calc(-48vw + var(--letter-index) * 5vw), calc(-40vh - var(--letter-index) * 2vh)) rotate(calc(-32deg + var(--letter-index) * 9deg)) scale(.35);
-    filter: blur(8px) drop-shadow(0 0 24px rgba(83, 203, 255, .6));
+    transform: translateY(-64vh) scale(1.5) rotate(calc(-6deg + var(--letter-index) * 1.4deg));
+    filter: blur(3px) drop-shadow(0 0 34px rgba(83, 203, 255, .75));
   }
-  12% {
+  52% {
     opacity: 1;
-    transform: translate(calc(-34vw + var(--letter-index) * 8vw), calc(-10vh - var(--letter-index) * 5vh)) rotate(calc(-20deg + var(--letter-index) * 12deg)) scale(1.12);
+    transform: translateY(0) scale(1.4) rotate(0deg);
+    filter: blur(0) drop-shadow(0 0 34px rgba(83, 203, 255, .75));
   }
-  25% { transform: translate(calc(-24vw + var(--letter-index) * 5vw), calc(-18vh + var(--letter-index) * 4vh)) rotate(calc(16deg - var(--letter-index) * 8deg)) scale(.86); }
-  39% { transform: translate(calc(-16vw + var(--letter-index) * 3vw), calc(2vh - var(--letter-index) * 2vh)) rotate(calc(-10deg + var(--letter-index) * 3deg)) scale(1.08); }
-  53% { transform: translate(calc(-10vw + var(--letter-index) * 1.8vw), calc(-5vh + var(--letter-index) * 1vh)) rotate(calc(8deg - var(--letter-index) * 2deg)) scale(.96); }
-  70% {
-    opacity: 1;
-    transform: translate(calc(-4vw + var(--letter-index) * .65vw), calc(-1vh + var(--letter-index) * .35vh)) rotate(calc(-4deg + var(--letter-index) * .8deg)) scale(1.03);
-  }
-  84% { transform: translate(calc(1vw - var(--letter-index) * .15vw), calc(1vh - var(--letter-index) * .1vh)) rotate(0) scale(.98); }
+  64% { transform: translateY(3%) scaleX(1.24) scaleY(.7) rotate(0deg); }
+  76% { transform: translateY(-4%) scaleX(.93) scaleY(1.09) rotate(0deg); }
+  88% { transform: translateY(1%) scaleX(1.03) scaleY(.98) rotate(0deg); }
   100% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0) scale(1);
+    transform: translateY(0) scale(1) rotate(0deg);
     filter: blur(0) drop-shadow(0 0 18px rgba(83, 203, 255, .3));
   }
+}
+
+@keyframes letter-impact-ring {
+  0% { opacity: .85; transform: translateX(-50%) scaleX(.25); }
+  100% { opacity: 0; transform: translateX(-50%) scaleX(1.7); }
 }
 
 @keyframes shine {

@@ -8,7 +8,10 @@
 
   const LOGO_TEXT = 'Vini Dev';
   const REDUCED_MOTION_DURATION = 650;
-  const INTRO_DURATION = 4300;
+  // 6200ms dá tempo do átomo terminar o voo (3.3s, intacto), das letras
+  // carimbarem uma a uma em seguida e do botão aparecer, antes da intro
+  // ser marcada como concluída.
+  const INTRO_DURATION = 6200;
 
   const shell = document.getElementById('introShell');
   const logoStage = document.getElementById('logoStage');
@@ -97,7 +100,7 @@
         context.fillStyle = glow;
         context.fillRect(0, 0, width, height);
 
-        const impactProgress = Math.max(0, Math.min((elapsed - 2440) / 500, 1));
+        const impactProgress = Math.max(0, Math.min((elapsed - 3300) / 500, 1));
 
         particles.forEach(function (particle) {
           const drift = (particle.y + time * 0.00001 * particle.speed) % 1;

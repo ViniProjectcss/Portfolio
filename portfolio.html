@@ -23,8 +23,8 @@
 
 <body>
 
-  <!-- PARTICLES -->
-  <div id="particles-js"></div>
+  <!-- FUNDO: vários átomos animados -->
+  <canvas id="atomsBg"></canvas>
 
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
@@ -40,7 +40,7 @@
     </nav>
 
     <div class="navbar-actions">
-      <a href="assets/curriculo.pdf" download class="btn-cv btn-cv--nav">
+      <a href="assets/curriculo.pdf" download class="btn-cv btn-cv--nav js-cv-download">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         Currículo
       </a>
@@ -76,7 +76,7 @@
 
       <div class="hero-buttons">
 
-        <a href="assets/curriculo.pdf" download class="btn-primary">
+        <a href="assets/curriculo.pdf" download class="btn-primary js-cv-download">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           Baixar Currículo
         </a>
@@ -435,85 +435,85 @@
         <div class="skills-track" id="skillsTrack">
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/javascript.svg" alt="Logo JavaScript" loading="lazy"></div>
             <h4>JavaScript</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/php.svg" alt="Logo PHP" loading="lazy"></div>
             <h4>PHP</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/nodejs.svg" alt="Logo Node.js" loading="lazy"></div>
             <h4>Node.js</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/python.svg" alt="Logo Python" loading="lazy"></div>
             <h4>Python</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/css3.svg" alt="Logo CSS3" loading="lazy"></div>
             <h4>CSS</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/html5.svg" alt="Logo HTML5" loading="lazy"></div>
             <h4>HTML</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg></div>
+            <div class="skill-icon skill-icon--mono"><span>Bl</span></div>
             <h4>Bling</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/mysql.svg" alt="Logo MySQL" loading="lazy"></div>
             <h4>MySQL</h4>
             <span class="skill-level">Intermediário</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/mariadb.svg" alt="Logo MariaDB" loading="lazy"></div>
             <h4>MariaDB</h4>
             <span class="skill-level">Intermediário</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/dbeaver.svg" alt="Logo DBeaver" loading="lazy"></div>
             <h4>DBeaver</h4>
             <span class="skill-level">Intermediário</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg></div>
+            <div class="skill-icon skill-icon--mono"><span>NAS</span></div>
             <h4>TrueNAS</h4>
             <span class="skill-level">Intermediário</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/expressjs.svg" alt="Logo Express.js" loading="lazy"></div>
             <h4>Express.js</h4>
             <span class="skill-level">Avançado</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path><path d="M2 7l10 5 10-5"></path></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/cloudflare.svg" alt="Logo Cloudflare" loading="lazy"></div>
             <h4>Cloudflare</h4>
             <span class="skill-level">Intermediário</span>
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+            <div class="skill-icon"><img src="assets/logos_habilidades/supabase.svg" alt="Logo Supabase" loading="lazy"></div>
             <h4>Supabase</h4>
             <span class="skill-level">Intermediário</span>
           </div>
@@ -544,7 +544,7 @@
         <div class="learning-content">
 
           <div class="learning-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path><path d="M2 7l10 5 10-5"></path></svg>
+            <img src="assets/logos_habilidades/aws.svg" alt="Logo AWS" loading="lazy">
           </div>
 
           <div>
@@ -1207,7 +1207,7 @@
 
     <div class="contact-grid">
 
-      <a href="assets/curriculo.pdf" download class="contact-card contact-card--highlight">
+      <a href="assets/curriculo.pdf" download class="contact-card contact-card--highlight js-cv-download">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <div>
           <h3>Currículo</h3>
@@ -1255,10 +1255,8 @@
     <p>© <span id="year"></span> Vinicius Macedo — Desenvolvido com GSAP + muito café.</p>
   </footer>
 
-  <!-- PARTICLES -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <script src="./assets/particles.js"></script>
+  <!-- FUNDO: átomos -->
+  <script src="./assets/atoms-bg.js"></script>
 
   <!-- SCRIPT -->
   <script src="script.js"></script>

@@ -97,6 +97,8 @@ gsap.fromTo(".learning-card", { opacity: 0, y: 60 }, {
 
   const cards = Array.from(track.querySelectorAll('.skill-card'));
   let currentIndex = 0;
+  let autoplayTimer = null;
+  const AUTOPLAY_DELAY = 3200;
 
   function getVisibleCards() {
     const containerWidth = carousel.offsetWidth;
@@ -127,6 +129,7 @@ gsap.fromTo(".learning-card", { opacity: 0, y: 60 }, {
       dot.addEventListener('click', function () {
         currentIndex = i;
         updateCarousel();
+        startAutoplay();
       });
       dotsContainer.appendChild(dot);
     }
@@ -139,25 +142,49 @@ gsap.fromTo(".learning-card", { opacity: 0, y: 60 }, {
     });
   }
 
-  prevBtn.addEventListener('click', function () {
+  function goPrev() {
     if (currentIndex > 0) {
       currentIndex--;
-      updateCarousel();
     } else {
       currentIndex = getMaxIndex();
-      updateCarousel();
     }
+    updateCarousel();
+  }
+
+  function goNext() {
+    if (currentIndex < getMaxIndex()) {
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+    updateCarousel();
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(goNext, AUTOPLAY_DELAY);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  prevBtn.addEventListener('click', function () {
+    goPrev();
+    startAutoplay();
   });
 
   nextBtn.addEventListener('click', function () {
-    if (currentIndex < getMaxIndex()) {
-      currentIndex++;
-      updateCarousel();
-    } else {
-      currentIndex = 0;
-      updateCarousel();
-    }
+    goNext();
+    startAutoplay();
   });
+
+  carousel.addEventListener('mouseenter', stopAutoplay);
+  carousel.addEventListener('mouseleave', startAutoplay);
+  carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
 
   let resizeTimer;
   window.addEventListener('resize', function () {
@@ -171,6 +198,7 @@ gsap.fromTo(".learning-card", { opacity: 0, y: 60 }, {
 
   buildDots();
   updateCarousel();
+  startAutoplay();
 
 })();
 
@@ -597,5 +625,41 @@ window.addEventListener('click', function(e) {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+
+})();
+
+/* =====================================================================
+   DOWNLOAD FORÇADO DO CURRÍCULO
+   -----------------------------------------------------------------
+   Baixa o PDF via fetch + blob em vez de deixar o navegador navegar
+   até o arquivo (o que abre o visualizador nativo em vez de baixar).
+   Só funciona servido por http/https (GitHub Pages, Live Server etc);
+   em file:// o fetch falha e cai no fallback (comportamento antigo).
+===================================================================== */
+(function () {
+
+  document.querySelectorAll('.js-cv-download').forEach(function (link) {
+    link.addEventListener('click', async function (e) {
+      e.preventDefault();
+      const url = link.getAttribute('href');
+
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+
+        const tempLink = document.createElement('a');
+        tempLink.href = blobUrl;
+        tempLink.download = 'Curriculo-Vinicius-Macedo.pdf';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+
+        URL.revokeObjectURL(blobUrl);
+      } catch (err) {
+        window.location.href = url;
+      }
+    });
+  });
 
 })();
