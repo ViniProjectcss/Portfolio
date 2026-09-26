@@ -452,6 +452,12 @@ window.addEventListener('click', function(e) {
   // valores maiores (ex: 1.5) deixam a foto "atrasada", mais suave.
   const SCRUB = 0.6;
 
+  // Mesma largura em que o CSS empilha o Hero (foto abaixo do texto).
+  // Nesse layout a foto só aparece depois que o usuário rola além do
+  // texto/botões, então o gatilho de início da animação precisa ser
+  // a própria foto entrando na tela — não o topo do Hero inteiro.
+  const STACKED_BREAKPOINT = 992;
+
   let placeholder = null;
   let heroPhotoTimeline = null;
 
@@ -490,6 +496,8 @@ window.addEventListener('click', function(e) {
   function setupPhotoScroll() {
 
     if (heroPhotoTimeline) return; // já configurado
+
+    const isStacked = window.innerWidth <= STACKED_BREAKPOINT;
 
     // Posição/tamanho atuais da foto (exatamente como está hoje).
     const start = pageOffset(heroImage.getBoundingClientRect());
@@ -531,14 +539,28 @@ window.addEventListener('click', function(e) {
     };
 
     heroPhotoTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroSection,
-        start: 'top top',
-        endTrigger: aboutSection,
-        end: 'top top',
-        scrub: SCRUB,
-        invalidateOnRefresh: true
-      }
+      scrollTrigger: isStacked
+        ? {
+            // Mobile/empilhado: a foto começa parada. Só passa a se
+            // mexer quando o usuário rolar o suficiente para ela
+            // chegar ao topo da tela (ou seja, depois de ler o texto
+            // e os botões, quando a foto já está totalmente visível).
+            trigger: placeholder,
+            start: 'top top',
+            endTrigger: aboutSection,
+            end: 'top top',
+            scrub: SCRUB,
+            invalidateOnRefresh: true
+          }
+        : {
+            // Desktop: comportamento original, sem alterações.
+            trigger: heroSection,
+            start: 'top top',
+            endTrigger: aboutSection,
+            end: 'top top',
+            scrub: SCRUB,
+            invalidateOnRefresh: true
+          }
     });
 
     // Duração explícita (1) em cada trecho + "posicionamento
