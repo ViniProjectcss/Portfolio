@@ -443,10 +443,6 @@ window.addEventListener('click', function(e) {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Abaixo desta largura o Hero já empilha (ver CSS), então a foto
-  // fica estática e a animação de deslocamento não é ativada.
-  const MIN_WIDTH = 992;
-
   // Ajuste este valor (0 a 1) para escolher o quão "pelo centro"
   // a foto passa no meio do trajeto. 0.5 = exatamente na metade.
   const MEIO_TRAJETO = 0.55;
@@ -492,11 +488,6 @@ window.addEventListener('click', function(e) {
   }
 
   function setupPhotoScroll() {
-
-    if (window.innerWidth < MIN_WIDTH) {
-      destroyPhotoScroll();
-      return;
-    }
 
     if (heroPhotoTimeline) return; // já configurado
 
@@ -576,8 +567,18 @@ window.addEventListener('click', function(e) {
 
   window.addEventListener('load', setupPhotoScroll);
 
+  // No mobile, a barra de endereço do navegador aparece/some durante
+  // o scroll e isso dispara "resize" mudando só a altura (innerHeight),
+  // sem mudar a largura. Se reconstruíssemos a animação nesse momento,
+  // ela travaria/sumiria no meio do gesto de rolagem. Por isso só
+  // reconstruímos quando a LARGURA realmente muda (giro de tela,
+  // redimensionar janela no desktop etc.).
   let resizeTimer;
+  let lastWidth = window.innerWidth;
   window.addEventListener('resize', function () {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       destroyPhotoScroll();
