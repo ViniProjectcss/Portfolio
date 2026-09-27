@@ -111,7 +111,8 @@ button { font: inherit; }
   mix-blend-mode: screen;
   animation:
     atom-emerge var(--flight, 2.4s) var(--flight-delay, .1s) ease-out both,
-    atom-stack-order var(--flight, 2.4s) var(--flight-delay, .1s) linear both;
+    atom-stack-order var(--flight, 2.4s) var(--flight-delay, .1s) linear both,
+    atom-final-stack-order var(--loop, 1.4s) var(--loop-delay, 3.3s) linear both;
 }
 
 .atom-stage {
@@ -121,6 +122,18 @@ button { font: inherit; }
   --flight-delay: .1s;
   --tilt: 68deg;                            /* inclinação de cada anel (68° ≈ elipse 150x58 do original) */
   --start-depth: 4.6;                       /* quão longe ele começa (em "tamanhos de átomo") */
+
+  /* giro extra dos anéis, depois que o átomo já chegou ao centro */
+  --loop: 1.4s;                                            /* duração do giro extra (uma volta de 360°) */
+  --loop-delay: calc(var(--flight) + var(--flight-delay));  /* começa quando a chegada original termina (3.3s) */
+  /* janela, dentro desse giro, em que o anel passa na frente do núcleo/nome
+     (o cruzamento "realista" que já existia; usada pra calcular o delay/
+     duração do reveal do nome lá embaixo, por isso é número puro e não %
+     — só assim dá pra multiplicar por --loop no calc()). Tem que bater com
+     os 30%/70% escritos "na mão" no @keyframes atom-final-stack-order,
+     porque offset de keyframe não aceita var(). */
+  --pass-start: .3;
+  --pass-end: .7;
 
   --ring-d: calc(var(--atom-size) * .78);   /* diâmetro dos anéis */
   --cyan: 139, 220, 255;
@@ -137,6 +150,7 @@ button { font: inherit; }
 .atom-drift,
 .atom-tumble,
 .atom-idle,
+.atom-final-spin,
 .ring,
 .electron-arm {
   transform-style: preserve-3d;
@@ -159,6 +173,18 @@ button { font: inherit; }
   inset: 0;
   will-change: transform;
   animation: atom-drift var(--flight) var(--flight-delay) linear both;
+}
+
+/* giro extra real: só rotateY, e só nos anéis (o núcleo fica de fora, como
+   já era). Antes de --loop-delay passar, fica travado em rotateY(0deg) —
+   não interfere em nada na chegada original; só entra em ação depois dela.
+   É o MESMO giro que o atom-idle já faz devagar pra sempre; aqui é só uma
+   volta rápida a mais, escolhida de propósito. */
+.atom-final-spin {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  animation: atom-final-spin var(--loop) var(--loop-delay) ease-in-out both;
 }
 
 .atom-tumble {
@@ -354,6 +380,32 @@ button { font: inherit; }
   100%   { z-index: 1; }
 }
 
+/* uma volta de 360° em Y — a "volta a mais" que os anéis dão depois de
+   chegar ao centro. Simples de propósito: uma única volta lisa, sem
+   pontos intermediários, porque quem dá o "corpo" ao movimento aqui é o
+   cruzamento real com o núcleo/nome (ver atom-final-stack-order abaixo). */
+@keyframes atom-final-spin {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* durante o giro extra, os anéis passam na frente do núcleo e do nome
+   exatamente entre 30% e 70% do giro (o mesmo tipo de cruzamento que já
+   acontecia no giro lento do atom-idle — aqui só marcamos quando acontece,
+   pra sincronizar com o reveal do nome lá embaixo). Fora dessa janela, o
+   átomo continua atrás do texto, como sempre.
+   OBS: offset de @keyframes tem que ser número literal, não aceita var() —
+   por isso 30%/70% aqui repetem os valores de --pass-start/--pass-end
+   (usados só como referência de tempo pro reveal do nome, no logo-stage). */
+@keyframes atom-final-stack-order {
+  0%     { z-index: 1; }
+  29.9%  { z-index: 1; }
+  30%    { z-index: 4; }
+  70%    { z-index: 4; }
+  70.1%  { z-index: 1; }
+  100%   { z-index: 1; }
+}
+
 /* giro em 3 eixos ao mesmo tempo, desacelerando até ficar parado */
 @keyframes atom-tumble {
   0%   { transform: rotateY(-700deg) rotateX(430deg) rotateZ(-120deg); }
@@ -382,6 +434,7 @@ button { font: inherit; }
   .atom-drift,
   .atom-tumble,
   .atom-idle,
+  .atom-final-spin,
   .ring-trail,
   .electron-arm,
   .nucleus {
@@ -417,6 +470,15 @@ button { font: inherit; }
   animation: fade-up .8s .2s forwards;
 }
 
+/*
+  Reveal em wipe horizontal (esquerda -> direita), com o MESMO início e a
+  MESMA duração da janela em que o anel passa na frente (--pass-start /
+  --pass-end, dentro de --loop/--loop-delay, lá em .atom-stage). Ou seja: o
+  nome só é revelado exatamente enquanto o anel está cruzando na frente dele
+  — antes e depois dessa janela, o nome fica como está (invisível antes,
+  totalmente visível depois). Como são animações CSS com timing calculado a
+  partir das MESMAS variáveis, ficam sincronizadas sem precisar de JS.
+*/
 .logo-stage {
   position: relative;
   display: flex;
@@ -428,42 +490,22 @@ button { font: inherit; }
   line-height: .96;
   letter-spacing: -.03em;
   text-shadow: 0 0 24px rgba(116, 211, 255, .14), 0 5px 34px rgba(0, 0, 0, .8);
+  clip-path: inset(0 100% 0 0);
+  animation: name-reveal
+    calc(var(--loop, 1.4s) * (var(--pass-end, .7) - var(--pass-start, .3)))
+    calc(var(--loop-delay, 3.3s) + var(--loop, 1.4s) * var(--pass-start, .3))
+    linear both;
 }
 
-/* As letras só começam a "carimbar" depois que o átomo termina o voo
-   (--flight 3.2s + --flight-delay .1s = 3.3s, definidos em .atom-stage
-   ali em cima — não duplicamos a variável de propósito, pra deixar bem
-   explícito que esse 3.3s é só uma referência de tempo, e não altera o
-   átomo em nada). Cada letra cai de cima como um bloco pesado, bate,
-   esmaga (squash) e assenta — como um carimbo/martelo batendo. */
 .logo-letter {
   --letter-index: 0;
   position: relative;
   display: inline-block;
   color: #d8f4ff;
-  opacity: 0;
-  transform-origin: 50% 100%;
-  animation: letter-stamp .62s calc(3.3s + var(--letter-index) * 110ms) cubic-bezier(.2, .85, .25, 1) both;
   filter: drop-shadow(0 0 18px rgba(83, 203, 255, .3));
 }
 
-/* anel de poeira/impacto no "chão" da letra, no instante em que ela bate */
-.logo-letter::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -4px;
-  width: 130%;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(139, 220, 255, .55), rgba(139, 220, 255, 0) 72%);
-  opacity: 0;
-  pointer-events: none;
-  animation: letter-impact-ring .45s calc(3.3s + var(--letter-index) * 110ms + .32s) ease-out both;
-}
-
 .logo-space { width: .28em; }
-.logo-space::after { content: none; }
 
 .logo-shine {
   position: absolute;
@@ -575,32 +617,12 @@ button { font: inherit; }
 .is-complete .logo-letter { opacity: 1; animation: settle .5s ease-out forwards; }
 .is-complete .skip-button { display: none; }
 
-/* queda pesada -> bate -> esmaga (squash) -> retorno com leve overshoot
-   -> assenta. É o "carimbo batendo" que substitui o efeito antigo. */
-@keyframes letter-stamp {
-  0% {
-    opacity: 0;
-    transform: translateY(-64vh) scale(1.5) rotate(calc(-6deg + var(--letter-index) * 1.4deg));
-    filter: blur(3px) drop-shadow(0 0 34px rgba(83, 203, 255, .75));
-  }
-  52% {
-    opacity: 1;
-    transform: translateY(0) scale(1.4) rotate(0deg);
-    filter: blur(0) drop-shadow(0 0 34px rgba(83, 203, 255, .75));
-  }
-  64% { transform: translateY(3%) scaleX(1.24) scaleY(.7) rotate(0deg); }
-  76% { transform: translateY(-4%) scaleX(.93) scaleY(1.09) rotate(0deg); }
-  88% { transform: translateY(1%) scaleX(1.03) scaleY(.98) rotate(0deg); }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0deg);
-    filter: blur(0) drop-shadow(0 0 18px rgba(83, 203, 255, .3));
-  }
-}
-
-@keyframes letter-impact-ring {
-  0% { opacity: .85; transform: translateX(-50%) scaleX(.25); }
-  100% { opacity: 0; transform: translateX(-50%) scaleX(1.7); }
+/* clip-path: inset(topo direita baixo esquerda). Começa cobrindo 100% da
+   direita (nada visível) e vai destampando até 0% (tudo visível) — um
+   wipe da esquerda pra direita, acompanhando o sentido do giro do anel. */
+@keyframes name-reveal {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0% 0 0); }
 }
 
 @keyframes shine {
@@ -631,5 +653,9 @@ button { font: inherit; }
     opacity: 1;
     transform: none;
     filter: none;
+  }
+  .logo-stage {
+    animation: none;
+    clip-path: none;
   }
 }

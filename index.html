@@ -38,46 +38,59 @@
           <div class="atom-tumble">
             <div class="atom-idle">
 
-              <!-- órbita 1 -->
-              <div class="ring ring-1">
-                <i class="ring-layer is-edge" style="--k:-2"></i>
-                <i class="ring-layer" style="--k:-1"></i>
-                <i class="ring-layer" style="--k:0"></i>
-                <i class="ring-layer" style="--k:1"></i>
-                <i class="ring-layer is-edge" style="--k:2"></i>
-                <i class="ring-trail"></i>
-                <div class="electron-arm">
-                  <i class="electron"></i>
-                  <i class="electron electron-cross"></i>
-                </div>
-              </div>
-              <!-- órbita 2 -->
-              <div class="ring ring-2">
-                <i class="ring-layer is-edge" style="--k:-2"></i>
-                <i class="ring-layer" style="--k:-1"></i>
-                <i class="ring-layer" style="--k:0"></i>
-                <i class="ring-layer" style="--k:1"></i>
-                <i class="ring-layer is-edge" style="--k:2"></i>
-                <i class="ring-trail"></i>
-                <div class="electron-arm">
-                  <i class="electron"></i>
-                  <i class="electron electron-cross"></i>
-                </div>
-              </div>
-              <!-- órbita 3 -->
-              <div class="ring ring-3">
-                <i class="ring-layer is-edge" style="--k:-2"></i>
-                <i class="ring-layer" style="--k:-1"></i>
-                <i class="ring-layer" style="--k:0"></i>
-                <i class="ring-layer" style="--k:1"></i>
-                <i class="ring-layer is-edge" style="--k:2"></i>
-                <i class="ring-trail"></i>
-                <div class="electron-arm">
-                  <i class="electron"></i>
-                  <i class="electron electron-cross"></i>
-                </div>
-              </div>
+              <!--
+                GIRO EXTRA (a "volta a mais"): depois que o átomo já chegou
+                ao centro (a partir de --loop-delay), os anéis dão um giro
+                rápido de 360° em Y — é o MESMO tipo de giro que o atom-idle
+                já faz devagar sem parar; aqui só aceleramos um giro completo
+                de propósito. É esse giro que faz um dos anéis passar na
+                frente do núcleo/nome, do jeito que já acontece naturalmente
+                (e você circulou na imagem). O núcleo fica de fora (embaixo),
+                então não gira e continua sempre "olhando" pra câmera.
+              -->
+              <div class="atom-final-spin">
 
+                <!-- órbita 1 -->
+                <div class="ring ring-1">
+                  <i class="ring-layer is-edge" style="--k:-2"></i>
+                  <i class="ring-layer" style="--k:-1"></i>
+                  <i class="ring-layer" style="--k:0"></i>
+                  <i class="ring-layer" style="--k:1"></i>
+                  <i class="ring-layer is-edge" style="--k:2"></i>
+                  <i class="ring-trail"></i>
+                  <div class="electron-arm">
+                    <i class="electron"></i>
+                    <i class="electron electron-cross"></i>
+                  </div>
+                </div>
+                <!-- órbita 2 -->
+                <div class="ring ring-2">
+                  <i class="ring-layer is-edge" style="--k:-2"></i>
+                  <i class="ring-layer" style="--k:-1"></i>
+                  <i class="ring-layer" style="--k:0"></i>
+                  <i class="ring-layer" style="--k:1"></i>
+                  <i class="ring-layer is-edge" style="--k:2"></i>
+                  <i class="ring-trail"></i>
+                  <div class="electron-arm">
+                    <i class="electron"></i>
+                    <i class="electron electron-cross"></i>
+                  </div>
+                </div>
+                <!-- órbita 3 -->
+                <div class="ring ring-3">
+                  <i class="ring-layer is-edge" style="--k:-2"></i>
+                  <i class="ring-layer" style="--k:-1"></i>
+                  <i class="ring-layer" style="--k:0"></i>
+                  <i class="ring-layer" style="--k:1"></i>
+                  <i class="ring-layer is-edge" style="--k:2"></i>
+                  <i class="ring-trail"></i>
+                  <div class="electron-arm">
+                    <i class="electron"></i>
+                    <i class="electron electron-cross"></i>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
 

@@ -8,10 +8,16 @@
 
   const LOGO_TEXT = 'Vini Dev';
   const REDUCED_MOTION_DURATION = 650;
-  // 6200ms dá tempo do átomo terminar o voo (3.3s, intacto), das letras
-  // carimbarem uma a uma em seguida e do botão aparecer, antes da intro
-  // ser marcada como concluída.
+  // 6200ms dá tempo do átomo terminar o voo (3.3s) + o giro extra dos anéis
+  // (mais 1.4s, definidos em --loop no intro.css: 3.3s + 1.4s = 4.7s), do
+  // nome se revelar em sincronia com o anel passando na frente, e do botão
+  // aparecer, antes da intro ser marcada como concluída.
   const INTRO_DURATION = 6200;
+  // Instante em que o átomo assenta de vez (3.3s da chegada original + 1.4s
+  // do giro extra = 4.7s). Repetido aqui como número (e não lido do CSS) de
+  // propósito, igual já era feito com o 3300 antigo — é só uma referência
+  // de tempo pro "flash" de impacto das partículas, e não afeta o átomo.
+  const ATOM_SETTLE_MS = 4700;
 
   const shell = document.getElementById('introShell');
   const logoStage = document.getElementById('logoStage');
@@ -100,7 +106,7 @@
         context.fillStyle = glow;
         context.fillRect(0, 0, width, height);
 
-        const impactProgress = Math.max(0, Math.min((elapsed - 3300) / 500, 1));
+        const impactProgress = Math.max(0, Math.min((elapsed - ATOM_SETTLE_MS) / 500, 1));
 
         particles.forEach(function (particle) {
           const drift = (particle.y + time * 0.00001 * particle.speed) % 1;
